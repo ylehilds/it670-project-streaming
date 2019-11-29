@@ -1,0 +1,1 @@
+mongoexport --host localhost --db thanksgiving --collection stream --type=csv --out thanksgiving.csv --fields _id,id,user,text
