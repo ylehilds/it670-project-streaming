@@ -1,5 +1,6 @@
 import auth
 import pymongo  # pip install pymongo
+import traceback
 
 
 def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
@@ -18,11 +19,13 @@ def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
 
     # Perform a bulk insert and  return the IDs
     try:
-        return coll.insert({ "id" : tweet['id_str'],"user": {"id": tweet["user"]["id_str"], "name": tweet["user"]["name"]},  "text" : tweet['text'] } )
-    except:
-        print ('error inserting a tweet')
+        return coll.insert(
+            {"id": tweet['id_str'], "user": {"id": tweet["user"]["id_str"], "name": tweet["user"]["name"]},
+             "text": tweet['text']})
+    except Exception:
+        traceback.print_exc()
+        print('error inserting a tweet')
         # return coll.insert_one(data)
-
 
 
 def load_from_mongo(mongo_db, mongo_db_coll, return_cursor=False,
@@ -52,7 +55,6 @@ def load_from_mongo(mongo_db, mongo_db_coll, return_cursor=False,
         return cursor
     else:
         return [item for item in cursor]
-
 
 # Sample usage
 

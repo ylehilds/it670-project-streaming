@@ -1,6 +1,7 @@
 import twitter
 import secrets
 
+
 def oauth_login():
     # XXX: Go to http://twitter.com/apps/new to create an app and get values
     # for these credentials that you'll need to provide in place of these
@@ -16,14 +17,15 @@ def oauth_login():
     auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
                                CONSUMER_KEY, CONSUMER_SECRET)
 
-    twitter_api = twitter.Twitter(auth=auth)
+    twitter_api = twitter.Twitter(auth=auth, retry=True)  # If `retry` is True, API rate limits will automatically be
+    # handled by waiting until the next reset, as indicated by the X-Rate-Limit-Reset HTTP header. If retry is an
+    # integer, it defines the number of retries attempted.
     return twitter_api
 
-
 # Sample usage
-twitter_api = oauth_login()
+# twitter_api = oauth_login()
 
 # Nothing to see by displaying twitter_api except that it's now a
 # defined variable
 
-print(twitter_api)
+# print(twitter_api)

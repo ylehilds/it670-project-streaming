@@ -7,7 +7,7 @@ import mongo_db
 
 # Query terms
 
-q = 'thanksgiving' # Comma-separated list of terms
+q = 'thanksgiving,gratitude,thankful'  # Comma-separated list of terms
 
 print('Filtering the public timeline for track={0}'.format(q), file=sys.stderr)
 sys.stderr.flush()
@@ -25,8 +25,12 @@ stream = twitter_stream.statuses.filter(track=q)
 # and something is sure to turn up (at least, on Twitter)
 
 for tweet in stream:
-    print(tweet['text'])
-    mongo_db.save_to_mongo(tweet, 'mytest', 'stream', host='mongodb://localhost:27017')
-    sys.stdout.flush()
+    try:
+        print(tweet['text'])
+        mongo_db.save_to_mongo(tweet, 'thanksgiving', 'stream', host='mongodb://localhost:27017')
+        sys.stdout.flush()
+    except Exception:
+        pass  # or you could use 'continue'
+
 
     # Save to a database in a particular collection
