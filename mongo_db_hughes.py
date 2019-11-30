@@ -25,11 +25,14 @@ def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
     coords = tweet.coordinates
     geo = tweet.geo
     name = tweet.user.screen_name
+    user_id = tweet.user.id_str
+    user_name = tweet.user.name
     user_created = tweet.user.created_at
     followers = tweet.user.followers_count
     id_str = tweet.id_str
     created = tweet.created_at
     retweets = tweet.retweet_count
+    favorites = tweet.favorite_count
     bg_color = tweet.user.profile_background_color
     blob = TextBlob(text)
     sent = blob.sentiment
@@ -48,8 +51,8 @@ def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
     # Perform a bulk insert and  return the IDs
     try:
         return coll.insert(
-            {"tweet_id": tweet.id_str, "user_id": tweet.user.id_str, "user_name": tweet.user.name,
-             "text": tweet.text, "url": url, "retweet_count": retweets, "favorite_count": tweet.favorite_count,
+            {"tweet_id": id_str, "user_id": user_id, "user_name": user_name,
+             "text": tweet.text, "url": url, "retweet_count": retweets, "favorite_count": favorites,
              "polarity": sent.polarity, "subjectivity": sent.subjectivity, "description": description,
              "location": loc, "coords": coords, "geo": geo, "name": name, "user_created": user_created,
              "followers": followers, "created": created, "bg_color": bg_color})
