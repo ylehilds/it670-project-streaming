@@ -26,10 +26,12 @@ stream = twitter_stream.statuses.filter(track=q)
 
 for tweet in stream:
     try:
-        print(tweet['text'])
+        tweetTemp = tweet['text']
+        print(tweetTemp)
         mongo_db.save_to_mongo(tweet, 'thanksgiving', 'stream', host='mongodb://localhost:27017')
         sys.stdout.flush()
     except Exception:
+        print('!!!!!!!!!!!!!!!!!!!exception occurred!!!!!!!!!!!!!!!!!!, tweet w/out text: ', tweet)
         pass  # or you could use 'continue'
 
 
