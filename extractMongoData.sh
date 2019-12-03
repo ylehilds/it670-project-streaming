@@ -16,4 +16,4 @@
 #use thanksgiving
 #db.stream.remove( { } )
 #db.dropDatabase()
-mongoexport --host localhost --db thanksgiving --collection stream --type=csv --out thanksgiving.csv --fields tweet_id,user_id,user_name,text,url,retweet_count,favorite_count,polarity,subjectivity,description,location,coords,geo,name,user_created,followers,created,bg_color
+mongoexport --host localhost --db presidential_candidates_2020 --collection stream --type=csv --out presidential_candidates_2020.csv --fields tweet_id,user_id,user_name,text,candidate,url,retweet_count,favorite_count,polarity,subjectivity,sentiment,description,location,coords,geo,name,user_created,followers,created,bg_color,images

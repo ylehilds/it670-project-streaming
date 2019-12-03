@@ -13,7 +13,7 @@ class StreamListener(tweepy.StreamListener):
         if status.retweeted:
             return
         try:
-            mongo_db_hughes.save_to_mongo(status, 'thanksgiving', 'stream', host='mongodb://localhost:27017')
+            mongo_db_hughes.save_to_mongo(status, 'presidential_candidates_2020', 'stream', host='mongodb://localhost:27017')
         except ProgrammingError as err:
             print(err)
 
@@ -29,5 +29,5 @@ api = tweepy.API(auth)
 
 stream_listener = StreamListener()
 stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-stream.filter(track=settings.TRACK_TERMS)
+stream.filter(track=settings.TRACK_TERMS, is_async=True)
 # stream.filter(locations=settings.LOCATION_TERMS)
