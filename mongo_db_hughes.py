@@ -14,6 +14,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyser = SentimentIntensityAnalyzer()
 
 def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
+    candidate = candidate_selection(tweet.text)
+    if candidate == 'Inconclusive':
+        return
     # Connects to the MongoDB server running on
     # localhost:27017 by default
 
@@ -63,7 +66,6 @@ def save_to_mongo(tweet, mongo_db, mongo_db_coll, **mongo_conn_kw):
     # for media_file in media_files:
     #     wget.download(media_file)
 
-    candidate = candidate_selection(text)
     if url is not None:
         url = " ".join(str(x) for x in url)
 
@@ -114,25 +116,25 @@ def vader_sentiment_analyzer_scores(sentence):
         return 'positive'
 
 def candidate_selection(text):
-    if text.lower().count('donald') or text.lower().count('trump'):
+    if text.lower().count('donald trump') or text.lower().count('trump'):
         return 'Donald Trump'
-    if text.lower().count('bill') or text.lower().count('weld'):
+    if text.lower().count('bill weld') or text.lower().count('weld'):
         return 'Bill Weld'
-    if text.lower().count('joe') or text.lower().count('walsh'):
+    if text.lower().count('joe walsh') or text.lower().count('walsh'):
         return 'Joe Walsh'
-    if text.lower().count('roque') or text.lower().count('fuente'):
+    if text.lower().count('roque fuente') or text.lower().count('fuente'):
         return 'Roque De La Fuente'
-    if text.lower().count('joe') or text.lower().count('biden'):
+    if text.lower().count('joe biden') or text.lower().count('biden'):
         return 'Joe Biden'
-    if text.lower().count('michael') or text.lower().count('bennet'):
+    if text.lower().count('michael bennet') or text.lower().count('bennet'):
         return 'Michael Bennet'
-    if text.lower().count('michael') or text.lower().count('bloomberg'):
+    if text.lower().count('michael bloomberg') or text.lower().count('bloomberg'):
         return 'Michael Bloomberg'
-    if text.lower().count('cory') or text.lower().count('booker'):
+    if text.lower().count('cory booker') or text.lower().count('booker'):
         return 'Cory Booker'
-    if text.lower().count('pete') or text.lower().count('buttigieg'):
+    if text.lower().count('pete buttigieg') or text.lower().count('buttigieg'):
         return 'Pete Buttigieg'
-    if text.lower().count('bernie') or text.lower().count('sanders'):
+    if text.lower().count('bernie sanders') or text.lower().count('sanders'):
         return 'Bernie Sanders'
     else:
         return 'Inconclusive'
