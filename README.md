@@ -36,7 +36,7 @@ A portfolio-ready **streaming data ingestion and analysis pipeline** built with 
    git clone https://github.com/ylehilds/it670-project-streaming.git
    cd it670-project-streaming
 
-   # (Recommended) create and activate a virtual environment
+   # Create and activate a virtual environment
    python -m venv .venv
    # macOS/Linux:
    source .venv/bin/activate
@@ -78,13 +78,13 @@ A portfolio-ready **streaming data ingestion and analysis pipeline** built with 
     - Perform EDA with pandas (grouping, filtering, summary stats).
     - Visualize results with matplotlib/plotly/etc.
 
-5) **Extract Data (Optional)**
+5) **Extract Data**
 
    bash extractMongoData.sh
 
-   Note: if the script relies on `mongoexport`, ensure MongoDB Database Tools are installed and on your PATH.
+   Note: The script relies on `mongoexport`, ensure MongoDB Database Tools are installed and on your PATH.
 
-## Example Usage Patterns
+## Usage Patterns
 
 - **Local development demo**
     1. Start MongoDB locally (`mongod`).
@@ -98,7 +98,7 @@ A portfolio-ready **streaming data ingestion and analysis pipeline** built with 
     3. Run the streamer from your machine or a server/VM.
     4. Collaborate on notebooks pointing to the same dataset.
 
-## Typical Queries (Illustrative)
+## Queries
 
     from mongo_db import get_client
 
